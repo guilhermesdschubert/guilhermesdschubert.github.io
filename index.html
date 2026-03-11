@@ -1,1 +1,551 @@
-<h1>Guilherme</h1>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guilherme Schubert — Currículo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1a2340;
+      --navy-mid: #243052;
+      --accent: #2e4a8a;
+      --light-accent: #3d60b0;
+      --bg: #f4f6fb;
+      --white: #ffffff;
+      --text: #1a2340;
+      --muted: #6b7a99;
+      --border: #d8deed;
+      --hatch: #c8d2e8;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    .page {
+      background: var(--navy);
+      width: 100%;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      position: relative;
+    }
+
+    /* ── Hatch decorations ── */
+    .hatch-tr {
+      position: absolute;
+      top: 0; right: 0;
+      width: 110px; height: 110px;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.12) 0, rgba(255,255,255,0.12) 1.5px,
+        transparent 0, transparent 50%
+      );
+      background-size: 10px 10px;
+      pointer-events: none;
+    }
+    .hatch-bl {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 90px; height: 90px;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.08) 0, rgba(255,255,255,0.08) 1.5px,
+        transparent 0, transparent 50%
+      );
+      background-size: 10px 10px;
+      pointer-events: none;
+    }
+
+    /* ── LEFT SIDEBAR ── */
+    .sidebar {
+      background: var(--navy);
+      color: var(--white);
+      padding: 56px 36px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+    .sidebar::-webkit-scrollbar { display: none; }
+
+    /* Photo placeholder */
+    .photo-wrap {
+      display: flex;
+      justify-content: center;
+    }
+    .photo-placeholder {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .photo-placeholder:hover { background: rgba(255,255,255,0.13); }
+    .photo-placeholder svg { opacity: 0.5; }
+    .photo-placeholder span {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.45);
+      text-transform: uppercase;
+    }
+
+    /* Sidebar sections */
+    .sb-section { display: flex; flex-direction: column; gap: 10px; }
+
+    .sb-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      padding-bottom: 8px;
+      margin-bottom: 6px;
+    }
+
+    /* Contact */
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.5;
+    }
+    .contact-item .icon {
+      width: 18px; height: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      opacity: 0.7;
+    }
+
+    /* Skills / Tags */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+    .tag {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 4px;
+      padding: 4px 11px;
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.02em;
+    }
+
+    /* Languages */
+    .lang-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .lang-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.85);
+    }
+    .lang-level { font-size: 11px; color: rgba(255,255,255,0.45); font-weight: 400; }
+    .lang-bar {
+      height: 3px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .lang-fill {
+      height: 100%;
+      background: rgba(255,255,255,0.55);
+      border-radius: 99px;
+    }
+
+    /* ── RIGHT MAIN ── */
+    .main {
+      padding: 56px clamp(36px, 6vw, 80px) 72px clamp(36px, 5vw, 64px);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      background: var(--white);
+      min-height: 100vh;
+    }
+
+    /* Name block */
+    .name-block {
+      margin-bottom: 40px;
+    }
+    .name-first {
+      display: block;
+      font-size: clamp(38px, 5vw, 64px);
+      font-weight: 900;
+      line-height: 1;
+      color: var(--navy);
+      letter-spacing: -0.03em;
+    }
+    .name-last {
+      display: block;
+      font-size: clamp(38px, 5vw, 64px);
+      font-weight: 900;
+      line-height: 1;
+      color: var(--accent);
+      letter-spacing: -0.03em;
+    }
+    .name-role {
+      margin-top: 12px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* Section header */
+    .section-header {
+      background: var(--navy);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 9px 16px;
+      margin-bottom: 24px;
+      margin-top: 36px;
+    }
+    .section-header:first-of-type { margin-top: 0; }
+
+    /* Experience entry */
+    .exp-entry { margin-bottom: 28px; }
+    .exp-entry:last-child { margin-bottom: 0; }
+
+    .exp-company {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .exp-role {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+    .exp-period {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--muted);
+      margin-top: 3px;
+      margin-bottom: 10px;
+    }
+    .exp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .exp-list li {
+      font-size: 13px;
+      font-weight: 400;
+      color: #3a4560;
+      line-height: 1.6;
+      padding-left: 16px;
+      position: relative;
+    }
+    .exp-list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.6;
+    }
+
+    /* Academic entry */
+    .edu-entry { margin-bottom: 20px; }
+    .edu-entry:last-child { margin-bottom: 0; }
+    .edu-degree { font-size: 14px; font-weight: 700; color: var(--navy); }
+    .edu-school { font-size: 13px; font-weight: 500; color: var(--accent); margin-top: 2px; }
+    .edu-period { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+    /* Summary */
+    .summary-text {
+      font-size: 13px;
+      font-weight: 400;
+      color: #3a4560;
+      line-height: 1.8;
+    }
+
+    /* Sidebar top name (visible only on mobile) */
+    .sidebar-top-name { display: none; }
+    .sb-name-first {
+      font-size: 22px; font-weight: 900; line-height: 1;
+      color: #fff; letter-spacing: -0.01em;
+    }
+    .sb-name-last {
+      font-size: 22px; font-weight: 900; line-height: 1;
+      color: rgba(255,255,255,0.55); letter-spacing: -0.01em;
+    }
+    .sb-name-role {
+      margin-top: 5px; font-size: 9px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ── TABLET (≤ 700px) ── */
+    @media (max-width: 700px) {
+      body { padding: 0; }
+
+      .page {
+        background: var(--white);
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        min-height: unset;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        position: relative;
+        height: auto;
+        overflow-y: visible;
+        padding: 32px 24px 28px;
+        gap: 24px;
+      }
+
+      /* Foto + nome lado a lado */
+      .sidebar-top { display: flex; align-items: center; gap: 20px; }
+      .sidebar-top-name { display: block; }
+
+      /* Esconde nome do main no mobile (já aparece na sidebar) */
+      .name-block { display: none; }
+
+      .photo-wrap { justify-content: flex-start; }
+      .photo-placeholder { width: 90px; height: 90px; flex-shrink: 0; }
+      .photo-placeholder svg { width: 26px; height: 26px; }
+
+      /* Contatos em grid 2 colunas */
+      .sb-section.contact-grid .contact-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 16px;
+      }
+
+      .contact-item { font-size: 12px; }
+      .contact-item .icon { width: 16px; height: 16px; }
+
+      /* Tags maiores para toque */
+      .tag { font-size: 11px; padding: 5px 11px; }
+
+      /* Idiomas em grid 3 colunas */
+      .sb-section.lang-grid .lang-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+
+      /* Main */
+      .main { padding: 28px 24px 36px; min-height: unset; }
+
+      .section-header { font-size: 9px; margin-top: 22px; }
+      .exp-list li { font-size: 12px; }
+      .edu-degree { font-size: 13px; }
+      .edu-school { font-size: 12px; }
+      .summary-text { font-size: 12px; }
+
+      .hatch-tr { position: absolute; width: 70px; height: 70px; }
+      .hatch-bl { display: none; }
+    }
+
+    /* ── SMALL MOBILE (≤ 420px) ── */
+    @media (max-width: 420px) {
+      .sidebar { padding: 24px 18px 22px; }
+      .main { padding: 22px 18px 30px; }
+
+      .name-first, .name-last { font-size: 30px; }
+
+      .sb-section.contact-grid .contact-list {
+        grid-template-columns: 1fr;
+      }
+
+      .sb-section.lang-grid .lang-list {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .photo-placeholder { width: 76px; height: 76px; }
+    }
+
+    @media print {
+      body { padding: 0; background: white; }
+      .page { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="sidebar-top">
+      <div class="photo-wrap">
+        <!-- ✏️ FOTO: substitua o conteúdo abaixo por <img src="sua-foto.jpg" ...> -->
+        <img src="img.jpg" width="150" height="150"
+            style="border-radius:50%; object-fit:cover; border:3px solid rgba(255,255,255,0.25); display:block;">
+      </div>
+      <div class="sidebar-top-name">
+        <div class="sb-name-first">GUILHERME</div>
+        <div class="sb-name-last">SCHUBERT</div>
+        <div class="sb-name-role">Automação Industrial</div>
+      </div>
+      </div><!-- /sidebar-top -->
+
+      <div class="sb-section contact-grid">
+        <div class="sb-title">Contato</div>
+        <div class="contact-list">
+        <div class="contact-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.63a16 16 0 006.29 6.29l1.95-1.95a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2.01z"/>
+          </svg>
+          +55 (47) 99247-0518
+        </div>
+        <div class="contact-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+          </svg>
+          guilherme.d.schubert<br/>@gmail.com
+        </div>
+        <div class="contact-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+          Rua Pomerode, 1015<br/>Timbó / SC
+        </div>
+        <div class="contact-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+          </svg>
+          Guilherme Schubert
+        </div>
+        </div><!-- /contact-list -->
+      </div>
+
+      <div class="sb-section lang-grid">
+        <div class="sb-title">Idiomas</div>
+        <div class="lang-list">
+        <div class="lang-item">
+          <div class="lang-label"><span>Português</span><span class="lang-level">Avançado</span></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-label"><span>Inglês</span><span class="lang-level">Intermediário</span></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:60%"></div></div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-label"><span>Espanhol</span><span class="lang-level">Intermediário</span></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:55%"></div></div>
+        </div>
+        </div><!-- /lang-list -->
+      </div>
+
+      <div class="sb-section">
+        <div class="sb-title">Cursos & Habilidades</div>
+        <div class="tags">
+          <span class="tag">NR10</span>
+          <span class="tag">NR12</span>
+          <span class="tag">UI/UX · Figma</span>
+          <span class="tag">Python Avançado</span>
+          <span class="tag">SQL Avançado</span>
+          <span class="tag">C++ Intermediário</span>
+          <span class="tag">JavaScript Avançado</span>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <div class="name-block">
+        <span class="name-first">GUILHERME</span>
+        <span class="name-last">SCHUBERT</span>
+        <div class="name-role">Assistente de Programação · Automação Industrial</div>
+      </div>
+
+      <div class="section-header">Experiência Profissional</div>
+
+      <div class="exp-entry">
+        <div class="exp-company">Fersiltec</div>
+        <div class="exp-role">Assistente de Programação</div>
+        <div class="exp-period">Fevereiro 2024 — Atual</div>
+        <ul class="exp-list">
+          <li>Desenvolvimento e programação de sistemas de automação industrial com CLPs de diferentes fabricantes (Siemens, WEG e Delta).</li>
+          <li>Configuração, desenvolvimento e otimização de IHMs e sistemas supervisórios (SCADA).</li>
+          <li>Criação e manutenção de software de comunicação entre sistemas supervisórios e plataformas corporativas, incluindo integração com ERP TOTVS.</li>
+          <li>Implementação de comunicação e interface com AMRs.</li>
+          <li>Participação em testes, comissionamento, diagnóstico de falhas e melhoria contínua de processos automatizados.</li>
+          <li>Suporte técnico em campo e validação de soluções com equipes de operação e engenharia.</li>
+        </ul>
+      </div>
+
+      <div class="exp-entry">
+        <div class="exp-company">SENAI Timbó-SC</div>
+        <div class="exp-role">Trainee</div>
+        <div class="exp-period">Março 2023 — Dezembro 2023</div>
+        <ul class="exp-list">
+          <li>Gestão operacional de laboratórios elétricos de edificações, industriais e de automação, garantindo operação contínua, segurança e organização dos ambientes técnicos.</li>
+        </ul>
+      </div>
+
+      <div class="section-header">Formação Acadêmica</div>
+
+      <div class="edu-entry">
+        <div class="edu-degree">Bacharelado em Engenharia de Software</div>
+        <div class="edu-school">UNIASSELVI</div>
+        <div class="edu-period">Em andamento — Previsão de conclusão: 2030 · Turno: Noturno</div>
+      </div>
+
+      <div class="edu-entry">
+        <div class="edu-degree">Técnico em Eletrotécnica</div>
+        <div class="edu-school">SENAI Timbó</div>
+        <div class="edu-period">Janeiro 2022 — Dezembro 2023 · Concluído</div>
+      </div>
+
+      <div class="section-header">Sobre</div>
+
+      <p class="summary-text">
+        Ao longo da minha trajetória profissional, desenvolvi habilidades voltadas à análise, tomada de decisão e resolução de problemas técnicos. Tenho experiência no desenvolvimento e implementação de soluções de automação industrial, com ênfase em diagnóstico de falhas, otimização de processos e execução de projetos.<br/><br/>
+        Destaco meu trabalho no desenvolvimento de sistemas de gerenciamento de transelevadores, integrando CLPs, sistemas supervisórios e ERPs, bem como soluções de intralogística com AMRs. Também desenvolvi aplicações Python focadas na automatização e simplificação de atividades técnicas, sempre com foco em inovação e novas tecnologias.
+      </p>
+
+    </main>
+  </div>
+</body>
+</html>
